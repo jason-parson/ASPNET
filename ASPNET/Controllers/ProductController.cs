@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASPNET.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET.Controllers
@@ -32,7 +33,7 @@ namespace ASPNET.Controllers
 
         public IActionResult UpdateProduct(int id)
         {
-            Product prod = repo.GetProduct(id);
+             var  prod = repo.GetProduct(id);
 
             repo.UpdateProduct(prod);
 
@@ -50,6 +51,19 @@ namespace ASPNET.Controllers
             return RedirectToAction("ViewProduct", new { id = product.ProductID });
         }
 
+        public IActionResult InsertProduct()
+        {
+            var prod = repo.AssignCategory();
+
+            return View(prod);
+        }
+
+        public IActionResult InsertProductToDatabase(Product productToInsert)
+        {
+            repo.InsertProduct(productToInsert);
+
+            return RedirectToAction("Index");
+        }
 
 
 
